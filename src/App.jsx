@@ -1,27 +1,24 @@
-
-import axios from 'axios'
+import { useEffect, useState } from 'react'
 import './App.css'
-import useFetch from './hooks/useFetch';
+import TodoInputComponent from './components/TodoInputComponent'
+import TodoTaskComponent from './components/TodoTaskComponent'
 
-axios.defaults.baseURL = 'https://dummyjson.com';
 
 function App() {
+  const [todoTask, setTodoTask] = useState([]);
 
-  const {allProducts, isLoading} = useFetch()
+  useEffect(() => {
+    console.log(todoTask)
+  }, [todoTask])
 
   return (
     <>
-      <h1>Products</h1>
-      <div className="products">
-        {isLoading && allProducts.map((product) => (
-          <div className="product" key={product.id}>
-            <img src={product.thumbnail} alt={product.title} />
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <p>{product.price}</p>
-          </div>
-        ))}
-      </div>
+      <h1 className='title'>TODO APP</h1>
+
+      <TodoInputComponent todoTask={todoTask} setTodoTask={setTodoTask}/>
+      <TodoTaskComponent todoTask={todoTask} />
+      
+     
     </>
   )
 }
